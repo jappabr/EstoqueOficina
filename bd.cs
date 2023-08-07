@@ -16,7 +16,6 @@ namespace off
     {
         public int Codigo { get; set; }
         public string NomeCliente { get; set; }
-        public string Servico { get; set; }
 
         public double ValorTotal { get; set; }
         public DateTime Data { get; set; }
@@ -27,8 +26,6 @@ namespace off
     public class db
     {
         static string nomeArquivoBancoDados = "meu_banco_de_dados.db";
-
-
         static void CriarTabelas(SQLiteConnection connection)
         {
             string query = @"
@@ -42,7 +39,6 @@ namespace off
             CREATE TABLE IF NOT EXISTS Orcamento (
                 Codigo INTEGER PRIMARY KEY AUTOINCREMENT,
                 NomeCliente TEXT,
-                Serviço TEXT,
                 ValorTotal REAL,
                 Data DATE
             );";
@@ -54,8 +50,6 @@ namespace off
                 connection.Close();
             }
         }
-
-
         public static void InsertEstoqueItem(Item item)
         {
             using (SQLiteConnection connection = new SQLiteConnection($"Data Source={nomeArquivoBancoDados};Version=3;"))
@@ -75,8 +69,6 @@ namespace off
                 connection.Close();
             }
         }
-
-
         public static void InsertOrcamentoItem(OrcamentoItem item)
         {
             using (SQLiteConnection connection = new SQLiteConnection($"Data Source={nomeArquivoBancoDados};Version=3;"))
@@ -84,11 +76,10 @@ namespace off
                 CriarTabelas(connection);
 
                 connection.Open();
-                string query = "INSERT INTO Orcamento (NomeCliente, Servico, ValorTotal, Data) VALUES (@NomeCliente, @Servico, @ValorTotal, @Data);";
+                string query = "INSERT INTO Orcamento (NomeCliente, ValorTotal, Data) VALUES (@NomeCliente, @ValorTotal, @Data);";
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@NomeCliente", item.NomeCliente);
-                    command.Parameters.AddWithValue("@Servico", item.Servico);
                     command.Parameters.AddWithValue("@ValorTotal", item.ValorTotal);
                     command.Parameters.AddWithValue("@Data", item.Data);
                     command.ExecuteNonQuery();
@@ -97,7 +88,6 @@ namespace off
                 connection.Close();
             }
         }
-
         public static Item getItemByName(string nome)
         {
             using (SQLiteConnection connection = new SQLiteConnection($"Data Source={nomeArquivoBancoDados};Version=3;"))
@@ -105,7 +95,7 @@ namespace off
                 CriarTabelas(connection);
 
                 connection.Open();
-                string query = "SELECT * FROM Itens WHERE Nome = @Nome;";
+                string query = "SELECT * FROM Estoque WHERE Nome = @Nome;"; // Atualize para a tabela correta (Estoque)
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
@@ -117,6 +107,7 @@ namespace off
                         {
                             return new Item
                             {
+                                Codigo = Convert.ToInt32(reader["Codigo"]),
                                 Nome = reader["Nome"].ToString(),
                                 Valor = Convert.ToDouble(reader["Valor"]),
                                 Tipo = reader["Tipo"].ToString()
@@ -130,7 +121,6 @@ namespace off
 
             return null;
         }
-
         public static List<Item> GetEstoqueItens()
         {
             List<Item> itens = new List<Item>();
@@ -165,7 +155,6 @@ namespace off
 
             return itens;
         }
-
         public static List<OrcamentoItem> GetOrcamentoItens()
         {
             List<OrcamentoItem> itens = new List<OrcamentoItem>();
@@ -199,5 +188,64 @@ namespace off
 
             return itens;
         }
+        static void CriarTabelaConfiguracoes(SQLiteConnection connection)
+        {
+            string query = @"
+             CREATE TABLE IF NOT EXISTS Configuracoes (
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                SelectedFolderPath TEXT
+            );";
+
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+        public static string GetSelectedFolderPath()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection($"Data Source={nomeArquivoBancoDados};Version=3;"))
+            {
+                CriarTabelaConfiguracoes(connection);
+
+                connection.Open();
+                string query = "SELECT SelectedFolderPath FROM Configuracoes ORDER BY ID DESC LIMIT 1;";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return result.ToString();
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return string.Empty;
+        }
+        public static void UpdateSelectedFolderPath(string selectedFolderPath)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection($"Data Source={nomeArquivoBancoDados};Version=3;"))
+            {
+                CriarTabelaConfiguracoes(connection);
+
+                connection.Open();
+                string query = "INSERT OR REPLACE INTO Configuracoes (SelectedFolderPath) VALUES (@SelectedFolderPath);";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@SelectedFolderPath", selectedFolderPath);
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+        }
+
+        //TODO: Implementar função de calcular quantidade em cada tabela, de estoque e de orçamento.
     }
 }
