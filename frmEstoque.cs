@@ -22,7 +22,7 @@ namespace off
             dataGridView1.Columns.Add("Nome", "Nome");
             dataGridView1.Columns.Add("Valor", "Valor");
             dataGridView1.Columns.Add("Tipo", "Tipo");
-            dataGridView1.Columns["Codigo"].Width = 100;
+            dataGridView1.Columns["Codigo"].Width = 50;
             dataGridView1.Columns["Nome"].Width = 300;
             dataGridView1.Columns["Valor"].Width = 150;
             dataGridView1.Columns["Tipo"].Width = 100;
