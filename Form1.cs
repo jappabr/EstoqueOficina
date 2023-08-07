@@ -33,7 +33,7 @@ namespace off
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            //TODO: Criar partes do dashboard, ideias: quantidade de item cadastrado no estoque, valor total do orçamento gerados.
         }
 
         private void btnDash_Click(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace off
 
             lblTitle.Text = "Configuração";
             this.pnlFormLoader.Controls.Clear();
-            frmEstoque frmDashboard_Vrb = new frmEstoque() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            frmConfig frmDashboard_Vrb = new frmConfig() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
             frmDashboard_Vrb.FormBorderStyle = FormBorderStyle.None;
             this.pnlFormLoader.Controls.Add(frmDashboard_Vrb);
             frmDashboard_Vrb.Show();
