@@ -26,9 +26,9 @@ namespace off
             dataGridView1.Columns.Add("Codigo", "Código");
             dataGridView1.Columns.Add("Nome Cliente", "Nome Cliente");
             dataGridView1.Columns.Add("Valor Total", "Valor Total");
-            dataGridView1.Columns["Codigo"].Width = 100;
+            dataGridView1.Columns["Codigo"].Width = 50;
             dataGridView1.Columns["Nome Cliente"].Width = 450;
-            dataGridView1.Columns["Valor Total"].Width = 150;
+            dataGridView1.Columns["Valor Total"].Width = 100;
             dataGridView1.AllowUserToAddRows = false;
             CarregarItens();
 
@@ -65,8 +65,7 @@ namespace off
 
         private void button1_Click(object sender, EventArgs e)
         {
-          
-
+          //TODO: Calcular valor total dos orçamentos e quantidade de orçamentos criados
         }
     }
 }
