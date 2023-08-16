@@ -245,6 +245,79 @@ namespace off
                 connection.Close();
             }
         }
+        public static List<Item> searchItemsByName(string nome)
+        {
+            List<Item> resultados = new List<Item>();
+
+            using (SQLiteConnection connection = new SQLiteConnection($"Data Source={nomeArquivoBancoDados};Version=3;"))
+            {
+                CriarTabelas(connection);
+
+                connection.Open();
+                string query = "SELECT * FROM Estoque WHERE Nome LIKE @Nome;"; // Usar a cláusula LIKE para busca aproximada
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Nome", $"%{nome}%"); // Adicionar os caracteres curinga % para busca aproximada
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Item item = new Item
+                            {
+                                Codigo = Convert.ToInt32(reader["Codigo"]),
+                                Nome = reader["Nome"].ToString(),
+                                Valor = Convert.ToDouble(reader["Valor"]),
+                                Tipo = reader["Tipo"].ToString()
+                            };
+                            resultados.Add(item);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return resultados;
+        }
+        public static List<OrcamentoItem> searchOrcamentoItemsByName(string nome)
+        {
+            List<OrcamentoItem> orcamentoItens = new List<OrcamentoItem>();
+
+            using (SQLiteConnection connection = new SQLiteConnection($"Data Source={nomeArquivoBancoDados};Version=3;"))
+            {
+                CriarTabelas(connection);
+
+                connection.Open();
+                string query = "SELECT * FROM Orcamento WHERE NomeCliente LIKE @Nome;"; // Use LIKE para pesquisa aproximada
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Nome", "%" + nome + "%"); // Adicione % para pesquisa aproximada
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            OrcamentoItem item = new OrcamentoItem
+                            {
+                                Codigo = Convert.ToInt32(reader["Codigo"]),
+                                NomeCliente = reader["NomeCliente"].ToString(),
+                                ValorTotal = Convert.ToDouble(reader["ValorTotal"]),
+                                Data = Convert.ToDateTime(reader["Data"])
+                            };
+                            orcamentoItens.Add(item);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return orcamentoItens;
+        }
+
 
         //TODO: Implementar função de calcular quantidade em cada tabela, de estoque e de orçamento.
     }
