@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,35 @@ namespace off
                 {
                     e.CellStyle.BackColor = Color.White;
                 }
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string buscar = textBox1.Text.Trim();
+
+            // Verificar se o campo de busca não está vazio
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                // Realizar a busca aproximada no banco de dados com base no texto inserido no textBox1
+                List<Item> itensEncontrados = db.searchItemsByName(buscar);
+
+                // Limpar o DataGridView antes de adicionar os novos itens
+                dataGridView1.Rows.Clear();
+
+                // Adicionar os itens encontrados ao DataGridView
+                foreach (Item itemEncontrado in itensEncontrados)
+                {
+                    dataGridView1.Rows.Add(itemEncontrado.Codigo, itemEncontrado.Nome, itemEncontrado.Valor.ToString("C2"), itemEncontrado.Tipo);
+                }
+
+                if (itensEncontrados.Count == 0)
+                {
+                    MessageBox.Show("Nenhum item de estoque encontrado com esse nome.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Digite um nome para buscar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
