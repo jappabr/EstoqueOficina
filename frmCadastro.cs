@@ -19,8 +19,16 @@ namespace off
         public frmCadastro()
         {
             InitializeComponent();
-            comboBox1.Items.Add("Motor");
-            comboBox1.Items.Add("Suspensão");
+            comboBox1.Items.Add("Motor e Componentes");
+            comboBox1.Items.Add("Sistema de Transmissão");
+            comboBox1.Items.Add("Suspensão e Direção");
+            comboBox1.Items.Add("Sistema de Freios");
+            comboBox1.Items.Add("Sistema Elétrico e Eletrônico");
+            comboBox1.Items.Add("Sistema de Arrefecimento");
+            comboBox1.Items.Add("Sistema de Escape");
+            comboBox1.Items.Add("Acessórios e Conforto");
+            comboBox1.Items.Add("Carroceria e Exterior");
+            comboBox1.Items.Add("Interior");
         }
 
 
