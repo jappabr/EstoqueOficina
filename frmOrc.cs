@@ -65,7 +65,32 @@ namespace off
 
         private void button1_Click(object sender, EventArgs e)
         {
-          //TODO: Calcular valor total dos orçamentos e quantidade de orçamentos criados
+            string buscar = textBox1.Text.Trim(); // Remover espaços em branco no início e no fim do texto
+
+            // Verificar se o campo de busca não está vazio
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                // Realizar a busca aproximada no banco de dados com base no texto inserido no textBox1
+                List<OrcamentoItem> itensEncontrados = db.searchOrcamentoItemsByName(buscar);
+
+                // Limpar o DataGridView antes de adicionar os novos itens
+                dataGridView1.Rows.Clear();
+
+                // Adicionar os itens encontrados ao DataGridView
+                foreach (OrcamentoItem itemEncontrado in itensEncontrados)
+                {
+                    dataGridView1.Rows.Add(itemEncontrado.Codigo, itemEncontrado.NomeCliente, itemEncontrado.ValorTotal.ToString("C2"));
+                }
+
+                if (itensEncontrados.Count == 0)
+                {
+                    MessageBox.Show("Nenhum item encontrado com esse nome.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Digite um nome para buscar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
