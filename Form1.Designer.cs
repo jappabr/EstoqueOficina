@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
             btnCadastro = new FontAwesome.Sharp.IconButton();
             btnConfig = new FontAwesome.Sharp.IconButton();
             BtnOrc = new FontAwesome.Sharp.IconButton();
@@ -41,7 +42,8 @@
             panel3 = new Panel();
             pnlFormLoader = new Panel();
             lblTitle = new Label();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
+            iconButton3 = new FontAwesome.Sharp.IconButton();
+            iconButton4 = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -62,6 +64,26 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(186, 577);
             panel1.TabIndex = 0;
+            // 
+            // iconButton2
+            // 
+            iconButton2.Dock = DockStyle.Top;
+            iconButton2.FlatAppearance.BorderSize = 0;
+            iconButton2.FlatStyle = FlatStyle.Flat;
+            iconButton2.ForeColor = Color.FromArgb(0, 126, 249);
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.PencilAlt;
+            iconButton2.IconColor = Color.FromArgb(0, 126, 249);
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.IconSize = 23;
+            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton2.Location = new Point(0, 304);
+            iconButton2.Name = "iconButton2";
+            iconButton2.RightToLeft = RightToLeft.No;
+            iconButton2.Size = new Size(186, 40);
+            iconButton2.TabIndex = 8;
+            iconButton2.Text = "Cadastro de Orçamentos";
+            iconButton2.UseVisualStyleBackColor = true;
+            iconButton2.Click += iconButton2_Click;
             // 
             // btnCadastro
             // 
@@ -213,19 +235,21 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(iconButton4);
+            panel3.Controls.Add(iconButton3);
             panel3.Controls.Add(pnlFormLoader);
             panel3.Controls.Add(lblTitle);
             panel3.Location = new Point(183, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(766, 577);
+            panel3.Size = new Size(771, 577);
             panel3.TabIndex = 2;
             // 
             // pnlFormLoader
             // 
             pnlFormLoader.Dock = DockStyle.Bottom;
-            pnlFormLoader.Location = new Point(0, 100);
+            pnlFormLoader.Location = new Point(0, 91);
             pnlFormLoader.Name = "pnlFormLoader";
-            pnlFormLoader.Size = new Size(766, 477);
+            pnlFormLoader.Size = new Size(771, 486);
             pnlFormLoader.TabIndex = 9;
             // 
             // lblTitle
@@ -239,25 +263,33 @@
             lblTitle.TabIndex = 8;
             lblTitle.Text = "Dashboard";
             // 
-            // iconButton2
+            // iconButton3
             // 
-            iconButton2.Dock = DockStyle.Top;
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.ForeColor = Color.FromArgb(0, 126, 249);
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.PencilAlt;
-            iconButton2.IconColor = Color.FromArgb(0, 126, 249);
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 23;
-            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(0, 304);
-            iconButton2.Name = "iconButton2";
-            iconButton2.RightToLeft = RightToLeft.No;
-            iconButton2.Size = new Size(186, 40);
-            iconButton2.TabIndex = 8;
-            iconButton2.Text = "Cadastro de Orçamentos";
-            iconButton2.UseVisualStyleBackColor = true;
-            iconButton2.Click += iconButton2_Click;
+            iconButton3.FlatStyle = FlatStyle.Flat;
+            iconButton3.ForeColor = Color.FromArgb(46, 51, 73);
+            iconButton3.IconChar = FontAwesome.Sharp.IconChar.CloudUploadAlt;
+            iconButton3.IconColor = Color.Red;
+            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton3.Location = new Point(745, 0);
+            iconButton3.Name = "iconButton3";
+            iconButton3.Size = new Size(23, 23);
+            iconButton3.TabIndex = 10;
+            iconButton3.UseVisualStyleBackColor = true;
+            iconButton3.Click += iconButton3_Click;
+            // 
+            // iconButton4
+            // 
+            iconButton4.FlatStyle = FlatStyle.Flat;
+            iconButton4.ForeColor = Color.FromArgb(46, 51, 73);
+            iconButton4.IconChar = FontAwesome.Sharp.IconChar.CloudDownload;
+            iconButton4.IconColor = Color.RoyalBlue;
+            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton4.Location = new Point(716, 0);
+            iconButton4.Name = "iconButton4";
+            iconButton4.Size = new Size(23, 23);
+            iconButton4.TabIndex = 11;
+            iconButton4.UseVisualStyleBackColor = true;
+            iconButton4.Click += iconButton4_Click;
             // 
             // Form1
             // 
@@ -297,5 +329,7 @@
         private Panel pnlFormLoader;
         private FontAwesome.Sharp.IconButton btnCadastro;
         private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton iconButton3;
+        private FontAwesome.Sharp.IconButton iconButton4;
     }
 }
