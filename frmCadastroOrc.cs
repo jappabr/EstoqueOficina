@@ -131,7 +131,7 @@ namespace off
 
             // Adicionar o título ao documento
             iTextSharp.text.Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
-            doc.Add(new Paragraph("OFICINA DO MSSJIM", titleFont));
+            doc.Add(new Paragraph("OFICINA DO KAIO", titleFont));
             doc.Add(new Paragraph(Environment.NewLine));
 
             // Adicionar os dados do orçamento ao documento
@@ -142,8 +142,8 @@ namespace off
             doc.Add(new Paragraph(Environment.NewLine));
 
             // Adicionar os itens da DataGridView2 ao documento
-            PdfPTable table = new PdfPTable(dataGridView2.Columns.Count);
-            for (int i = 0; i < dataGridView2.Columns.Count; i++)
+            PdfPTable table = new PdfPTable(dataGridView2.Columns.Count - 1); // Remover a coluna do código
+            for (int i = 1; i < dataGridView2.Columns.Count; i++) // Começar a partir da segunda coluna (ignorar a coluna do código)
             {
                 PdfPCell cell = new PdfPCell(new Phrase(dataGridView2.Columns[i].HeaderText, normalFont));
                 table.AddCell(cell);
@@ -152,7 +152,7 @@ namespace off
 
             for (int i = 0; i < dataGridView2.Rows.Count; i++)
             {
-                for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                for (int j = 1; j < dataGridView2.Columns.Count; j++) // Começar a partir da segunda coluna (ignorar a coluna do código)
                 {
                     PdfPCell cell = new PdfPCell(new Phrase(dataGridView2[j, i].Value?.ToString(), normalFont));
                     table.AddCell(cell);
