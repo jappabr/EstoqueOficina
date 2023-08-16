@@ -151,5 +151,15 @@ namespace off
             this.pnlFormLoader.Controls.Add(frmDashboard_Vrb);
             frmDashboard_Vrb.Show();
         }
+
+        private void iconButton4_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
