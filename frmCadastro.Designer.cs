@@ -82,9 +82,9 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(556, 29);
+            comboBox1.Location = new Point(474, 29);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(121, 23);
+            comboBox1.Size = new Size(203, 23);
             comboBox1.TabIndex = 10;
             // 
             // label1
@@ -92,7 +92,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe MDL2 Assets", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.FromArgb(158, 161, 176);
-            label1.Location = new Point(556, 10);
+            label1.Location = new Point(474, 10);
             label1.Name = "label1";
             label1.Size = new Size(35, 16);
             label1.TabIndex = 9;
