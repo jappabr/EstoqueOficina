@@ -28,18 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Microsoft JhengHei", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(323, 182);
-            label1.Name = "label1";
-            label1.Size = new Size(555, 31);
-            label1.TabIndex = 0;
-            label1.Text = "RODRIGOR AKI EH O DASHBOARD Q APAGOU";
             // 
             // frmDashboard
             // 
@@ -47,17 +36,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(46, 51, 73);
             ClientSize = new Size(800, 450);
-            Controls.Add(label1);
             ForeColor = SystemColors.ControlText;
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmDashboard";
             Text = "frmDashboard";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
     }
 }
