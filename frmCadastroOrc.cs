@@ -1,11 +1,13 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 
 namespace off
 {
     public partial class frmCadastroOrc : Form
     {
         private string selectedFolderPath = db.GetSelectedFolderPath();
+        private int sequencialCodigo = 1;
         public frmCadastroOrc()
         {
             InitializeComponent();
@@ -13,24 +15,24 @@ namespace off
             dataGridView2.CellFormatting += dataGridView1_CellFormatting;
 
             dataGridView2.Columns.Add("Codigo", "Código");
-            dataGridView2.Columns.Add("Nome", "Nome");
+            dataGridView2.Columns.Add("Item", "Item");
             dataGridView2.Columns.Add("Valor", "Valor");
 
             dataGridView1.Columns.Add("Codigo", "Código");
-            dataGridView1.Columns.Add("Nome", "Nome");
+            dataGridView1.Columns.Add("Item", "Item");
             dataGridView1.Columns.Add("Valor", "Valor");
 
 
 
             // Configurar o tamanho das colunas do DataGridView2 (Orçamento)
             dataGridView2.Columns["Codigo"].Width = 50;
-            dataGridView2.Columns["Nome"].Width = 400;
-            dataGridView2.Columns["Valor"].Width = 80;
+            dataGridView2.Columns["Item"].Width = 700;
+            dataGridView2.Columns["Valor"].Width = 192;
 
             // Configurar o tamanho das colunas do DataGridView1 (Estoque)
             dataGridView1.Columns["Codigo"].Width = 50;
-            dataGridView1.Columns["Nome"].Width = 400;
-            dataGridView1.Columns["Valor"].Width = 80;
+            dataGridView1.Columns["Item"].Width = 700;
+            dataGridView1.Columns["Valor"].Width = 192;
 
             List<Item> itens = db.GetEstoqueItens();
 
@@ -46,17 +48,15 @@ namespace off
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
-                int codigo = Convert.ToInt32(selectedRow.Cells["Codigo"].Value);
-                string nome = selectedRow.Cells["Nome"].Value.ToString();
+                int codigo = sequencialCodigo; // Usar o sequencial como código
+                string item = selectedRow.Cells["Item"].Value.ToString();
                 double valor = Convert.ToDouble(selectedRow.Cells["Valor"].Value);
 
-                // Adicionar o item ao DataGridView do orçamento
-                dataGridView2.Rows.Add(codigo, nome, valor);
-
-                // Calcular o total do orçamento
-                CalcularTotalOrcamento();
+                // Adicionar o item ao DataGridView do orçamento com um sequencial de código
+                dataGridView2.Rows.Add(codigo, item, valor);
+                sequencialCodigo++; // Incrementar o sequencial
             }
-
+            CalcularTotalOrcamento();
         }
         private double CalcularTotalOrcamento()
         {
@@ -99,7 +99,7 @@ namespace off
             double totalOrcamento = CalcularTotalOrcamento();
             string nomeArquivoPDF = $"{nomeCliente}_{DateTime.Now:dd.MM.yyyy}.pdf";
 
-            GerarPDF(nomeArquivoPDF, nomeCliente, totalOrcamento);
+            GerarPDF(nomeArquivoPDF, nomeCliente, "445.772.358-46", "11 975198127", totalOrcamento);
 
             // Limpa o DataGridView do orçamento e recalcula o total
             dataGridView2.Rows.Clear();
@@ -117,13 +117,15 @@ namespace off
             {
                 DataGridViewRow selectedRow = dataGridView2.SelectedRows[0];
                 dataGridView2.Rows.Remove(selectedRow);
+                sequencialCodigo--; // Decrementar o sequencial
                 // Recalcular o total do orçamento após remover o item
                 CalcularTotalOrcamento();
             }
         }
-        private void GerarPDF(string nomeArquivoPDF, string nomeCliente, double totalOrcamento)
+        private void GerarPDF(string nomeArquivoPDF, string nomeCliente, string cpfCliente, string telefoneCliente, double totalOrcamento)
         {
             string caminhoCompleto = Path.Combine(selectedFolderPath, nomeArquivoPDF);
+
             // Configurar o documento PDF
             Document doc = new Document();
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminhoCompleto, FileMode.Create));
@@ -131,35 +133,56 @@ namespace off
 
             // Adicionar o título ao documento
             iTextSharp.text.Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
-            doc.Add(new Paragraph("OFICINA DO KAIO", titleFont));
+            Paragraph title = new Paragraph("OFICINA DO KAIO", titleFont);
+            title.Alignment = Element.ALIGN_CENTER;
+            doc.Add(title);
             doc.Add(new Paragraph(Environment.NewLine));
 
-            // Adicionar os dados do orçamento ao documento
+            // Dados de contato
+            iTextSharp.text.Font smallFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            Paragraph contactInfo = new Paragraph("Telefone: (XX) XXXX-XXXX | CNPJ: XX.XXX.XXX/XXXX-XX | " + DateTime.Now.ToString("dd/MM/yyyy"), smallFont);
+            contactInfo.Alignment = Element.ALIGN_CENTER;
+            doc.Add(contactInfo);
+            doc.Add(new Paragraph(Environment.NewLine));
+
+            // Linha com os dados do cliente
+            LineSeparator lineSeparator = new LineSeparator();
+            doc.Add(lineSeparator);
+            doc.Add(new Paragraph(Environment.NewLine));
+
+            // Título CLIENTE
+            iTextSharp.text.Font clientTitleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14);
+            Paragraph clientTitle = new Paragraph("CLIENTE", clientTitleFont);
+            clientTitle.Alignment = Element.ALIGN_LEFT;
+            doc.Add(clientTitle);
+            doc.Add(new Paragraph(Environment.NewLine));
+
+            // Dados do cliente
+            iTextSharp.text.Font clientDataFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+            Paragraph clientData = new Paragraph($"Nome: {nomeCliente}\nCPF: {cpfCliente}\nTelefone: {telefoneCliente}", clientDataFont);
+            clientData.Alignment = Element.ALIGN_LEFT;
+            doc.Add(clientData);
+            doc.Add(new Paragraph(Environment.NewLine));
+
+            // Adicionar uma linha de separação entre cliente e orçamento
+            doc.Add(new LineSeparator());
+            doc.Add(new Paragraph(Environment.NewLine));
+
+            // Adicionar os dados do orçamento ao documento...
+            doc.Add(new Paragraph("Itens do Orçamento:", clientDataFont));
+            doc.Add(new Paragraph(Environment.NewLine));
+
+            // Adicionar os itens da DataGridView2 ao documento (exceto o último item)
             iTextSharp.text.Font normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
-            doc.Add(new Paragraph($"Nome do Cliente: {nomeCliente}", normalFont));
-            doc.Add(new Paragraph(Environment.NewLine));
-            doc.Add(new Paragraph("Itens do Orçamento:", normalFont));
-            doc.Add(new Paragraph(Environment.NewLine));
-
-            // Adicionar os itens da DataGridView2 ao documento
-            PdfPTable table = new PdfPTable(dataGridView2.Columns.Count - 1); // Remover a coluna do código
-            for (int i = 1; i < dataGridView2.Columns.Count; i++) // Começar a partir da segunda coluna (ignorar a coluna do código)
+            for (int i = 0; i < dataGridView2.Rows.Count - 1; i++)
             {
-                PdfPCell cell = new PdfPCell(new Phrase(dataGridView2.Columns[i].HeaderText, normalFont));
-                table.AddCell(cell);
-            }
-            table.HeaderRows = 1;
+                string item = dataGridView2.Rows[i].Cells["Item"].Value?.ToString();
+                string valor = dataGridView2.Rows[i].Cells["Valor"].Value?.ToString();
 
-            for (int i = 0; i < dataGridView2.Rows.Count; i++)
-            {
-                for (int j = 1; j < dataGridView2.Columns.Count; j++) // Começar a partir da segunda coluna (ignorar a coluna do código)
-                {
-                    PdfPCell cell = new PdfPCell(new Phrase(dataGridView2[j, i].Value?.ToString(), normalFont));
-                    table.AddCell(cell);
-                }
+                // Exibir o item e valor na mesma linha
+                string linhaItemValor = $"Item: {item} - Valor: {valor:C2}";
+                doc.Add(new Paragraph(linhaItemValor, normalFont));
             }
-
-            doc.Add(table);
 
             // Adicionar o total do orçamento ao documento
             doc.Add(new Paragraph(Environment.NewLine));
@@ -170,6 +193,7 @@ namespace off
 
             MessageBox.Show("PDF gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -183,6 +207,11 @@ namespace off
                     e.CellStyle.BackColor = Color.White;
                 }
             }
+        }
+
+        private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            CalcularTotalOrcamento();
         }
     }
 
