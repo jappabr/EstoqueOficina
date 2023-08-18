@@ -31,6 +31,8 @@ namespace off
             dataGridView1.Columns["Valor Total"].Width = 100;
             dataGridView1.AllowUserToAddRows = false;
             CarregarItens();
+            double totalOrcamento = db.CalcularTotalOrcamentos();
+            label1.Text = totalOrcamento.ToString("C2");
 
         }
         private void CarregarItens()
@@ -92,5 +94,6 @@ namespace off
                 MessageBox.Show("Digite um nome para buscar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
     }
 }
