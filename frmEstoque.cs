@@ -23,10 +23,10 @@ namespace off
             dataGridView1.Columns.Add("Nome", "Nome");
             dataGridView1.Columns.Add("Valor", "Valor");
             dataGridView1.Columns.Add("Tipo", "Tipo");
-            dataGridView1.Columns["Codigo"].Width = 50;
-            dataGridView1.Columns["Nome"].Width = 300;
-            dataGridView1.Columns["Valor"].Width = 150;
-            dataGridView1.Columns["Tipo"].Width = 100;
+            dataGridView1.Columns["Codigo"].Width = 60;
+            dataGridView1.Columns["Nome"].Width = 500;
+            dataGridView1.Columns["Valor"].Width = 170;
+            dataGridView1.Columns["Tipo"].Width = 280;
             dataGridView1.AllowUserToAddRows = false;
             CarregarItens();
         }
@@ -87,6 +87,35 @@ namespace off
             {
                 MessageBox.Show("Digite um nome para buscar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            string nome = textBox2.Text.ToLower();
+            double valor = double.Parse(textBox4.Text);
+            string tipo = comboBox1.Text;
+
+            Item item = new Item { Nome = nome, Valor = valor, Tipo = tipo };
+
+            Item itemBuscado = db.getItemByName(nome);
+
+            if (itemBuscado == null)
+            {
+                db.InsertEstoqueItem(item);
+                MessageBox.Show($"Item cadastrado com sucesso!\n Tipo: {item.Tipo}\nNome: {item.Nome}, Valor: {item.Valor.ToString("C2")}", "Cadastrado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+            }
+            else
+            {
+                MessageBox.Show("Item já cadastrado!");
+            }
+
         }
     }
 }
