@@ -318,7 +318,24 @@ namespace off
             return orcamentoItens;
         }
 
+        public static double CalcularTotalOrcamentos()
+        {
+            double total = 0;
 
+            List<OrcamentoItem> orcamentoItens = GetOrcamentoItens();
+
+            foreach (OrcamentoItem item in orcamentoItens)
+            {
+                total += item.ValorTotal;
+            }
+
+            return total;
+        }
+        public static int CalcularOrcamentos()
+        {
+            List<OrcamentoItem> orcamentoItens = GetOrcamentoItens();
+            return orcamentoItens.Count;
+        }
         //TODO: Implementar função de calcular quantidade em cada tabela, de estoque e de orçamento.
     }
 }
