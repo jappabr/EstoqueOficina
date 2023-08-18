@@ -117,26 +117,6 @@ namespace off
 
         }
 
-        private void btnCadastro_Click(object sender, EventArgs e)
-        {
-            pnlNav.Height = btnCadastro.Height;
-            pnlNav.Top = btnCadastro.Top;
-            pnlNav.Left = btnCadastro.Left;
-            btnCadastro.BackColor = Color.FromArgb(46, 51, 73);
-
-            lblTitle.Text = "Cadastro";
-            this.pnlFormLoader.Controls.Clear();
-            frmCadastro frmDashboard_Vrb = new frmCadastro() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            frmDashboard_Vrb.FormBorderStyle = FormBorderStyle.None;
-            this.pnlFormLoader.Controls.Add(frmDashboard_Vrb);
-            frmDashboard_Vrb.Show();
-        }
-
-        private void btnCadastro_Leave(object sender, EventArgs e)
-        {
-            btnCadastro.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
         private void iconButton2_Click(object sender, EventArgs e)
         {
             pnlNav.Height = iconButton2.Height;
@@ -160,6 +140,11 @@ namespace off
         private void iconButton3_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void pnlFormLoader_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
