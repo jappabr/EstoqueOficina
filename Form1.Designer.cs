@@ -30,7 +30,6 @@
         {
             panel1 = new Panel();
             iconButton2 = new FontAwesome.Sharp.IconButton();
-            btnCadastro = new FontAwesome.Sharp.IconButton();
             btnConfig = new FontAwesome.Sharp.IconButton();
             BtnOrc = new FontAwesome.Sharp.IconButton();
             btnEstoque = new FontAwesome.Sharp.IconButton();
@@ -40,10 +39,10 @@
             iconButton1 = new FontAwesome.Sharp.IconButton();
             pnlNav = new Panel();
             panel3 = new Panel();
+            iconButton4 = new FontAwesome.Sharp.IconButton();
+            iconButton3 = new FontAwesome.Sharp.IconButton();
             pnlFormLoader = new Panel();
             lblTitle = new Label();
-            iconButton3 = new FontAwesome.Sharp.IconButton();
-            iconButton4 = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -53,7 +52,6 @@
             // 
             panel1.BackColor = Color.FromArgb(24, 30, 54);
             panel1.Controls.Add(iconButton2);
-            panel1.Controls.Add(btnCadastro);
             panel1.Controls.Add(btnConfig);
             panel1.Controls.Add(BtnOrc);
             panel1.Controls.Add(btnEstoque);
@@ -62,7 +60,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(186, 577);
+            panel1.Size = new Size(187, 773);
             panel1.TabIndex = 0;
             // 
             // iconButton2
@@ -76,35 +74,14 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 23;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(0, 304);
+            iconButton2.Location = new Point(0, 264);
             iconButton2.Name = "iconButton2";
             iconButton2.RightToLeft = RightToLeft.No;
-            iconButton2.Size = new Size(186, 40);
+            iconButton2.Size = new Size(187, 40);
             iconButton2.TabIndex = 8;
             iconButton2.Text = "Cadastro de Orçamentos";
             iconButton2.UseVisualStyleBackColor = true;
             iconButton2.Click += iconButton2_Click;
-            // 
-            // btnCadastro
-            // 
-            btnCadastro.Dock = DockStyle.Top;
-            btnCadastro.FlatAppearance.BorderSize = 0;
-            btnCadastro.FlatStyle = FlatStyle.Flat;
-            btnCadastro.ForeColor = Color.FromArgb(0, 126, 249);
-            btnCadastro.IconChar = FontAwesome.Sharp.IconChar.Add;
-            btnCadastro.IconColor = Color.FromArgb(0, 126, 249);
-            btnCadastro.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnCadastro.IconSize = 23;
-            btnCadastro.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCadastro.Location = new Point(0, 264);
-            btnCadastro.Name = "btnCadastro";
-            btnCadastro.RightToLeft = RightToLeft.No;
-            btnCadastro.Size = new Size(186, 40);
-            btnCadastro.TabIndex = 7;
-            btnCadastro.Text = "Cadastro";
-            btnCadastro.UseVisualStyleBackColor = true;
-            btnCadastro.Click += btnCadastro_Click;
-            btnCadastro.Leave += btnCadastro_Leave;
             // 
             // btnConfig
             // 
@@ -117,10 +94,10 @@
             btnConfig.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnConfig.IconSize = 23;
             btnConfig.ImageAlign = ContentAlignment.MiddleLeft;
-            btnConfig.Location = new Point(0, 537);
+            btnConfig.Location = new Point(0, 733);
             btnConfig.Name = "btnConfig";
             btnConfig.RightToLeft = RightToLeft.No;
-            btnConfig.Size = new Size(186, 40);
+            btnConfig.Size = new Size(187, 40);
             btnConfig.TabIndex = 6;
             btnConfig.Text = "Configuração";
             btnConfig.UseVisualStyleBackColor = true;
@@ -141,7 +118,7 @@
             BtnOrc.Location = new Point(0, 224);
             BtnOrc.Name = "BtnOrc";
             BtnOrc.RightToLeft = RightToLeft.No;
-            BtnOrc.Size = new Size(186, 40);
+            BtnOrc.Size = new Size(187, 40);
             BtnOrc.TabIndex = 4;
             BtnOrc.Text = "Orçamento";
             BtnOrc.UseVisualStyleBackColor = true;
@@ -162,7 +139,7 @@
             btnEstoque.Location = new Point(0, 184);
             btnEstoque.Name = "btnEstoque";
             btnEstoque.RightToLeft = RightToLeft.No;
-            btnEstoque.Size = new Size(186, 40);
+            btnEstoque.Size = new Size(187, 40);
             btnEstoque.TabIndex = 3;
             btnEstoque.Text = "Estoque";
             btnEstoque.UseVisualStyleBackColor = true;
@@ -183,7 +160,7 @@
             btnDash.Location = new Point(0, 144);
             btnDash.Name = "btnDash";
             btnDash.RightToLeft = RightToLeft.No;
-            btnDash.Size = new Size(186, 40);
+            btnDash.Size = new Size(187, 40);
             btnDash.TabIndex = 2;
             btnDash.Text = "Dashboard";
             btnDash.UseVisualStyleBackColor = true;
@@ -197,7 +174,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(186, 144);
+            panel2.Size = new Size(187, 144);
             panel2.TabIndex = 0;
             // 
             // label1
@@ -239,18 +216,47 @@
             panel3.Controls.Add(iconButton3);
             panel3.Controls.Add(pnlFormLoader);
             panel3.Controls.Add(lblTitle);
-            panel3.Location = new Point(183, 0);
+            panel3.Location = new Point(183, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(771, 577);
+            panel3.Size = new Size(1381, 770);
             panel3.TabIndex = 2;
+            // 
+            // iconButton4
+            // 
+            iconButton4.FlatStyle = FlatStyle.Flat;
+            iconButton4.ForeColor = Color.FromArgb(46, 51, 73);
+            iconButton4.IconChar = FontAwesome.Sharp.IconChar.CloudDownload;
+            iconButton4.IconColor = Color.RoyalBlue;
+            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton4.Location = new Point(1326, -3);
+            iconButton4.Name = "iconButton4";
+            iconButton4.Size = new Size(23, 23);
+            iconButton4.TabIndex = 11;
+            iconButton4.UseVisualStyleBackColor = true;
+            iconButton4.Click += iconButton4_Click;
+            // 
+            // iconButton3
+            // 
+            iconButton3.FlatStyle = FlatStyle.Flat;
+            iconButton3.ForeColor = Color.FromArgb(46, 51, 73);
+            iconButton3.IconChar = FontAwesome.Sharp.IconChar.CloudUploadAlt;
+            iconButton3.IconColor = Color.Red;
+            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton3.Location = new Point(1355, -3);
+            iconButton3.Name = "iconButton3";
+            iconButton3.Size = new Size(23, 23);
+            iconButton3.TabIndex = 10;
+            iconButton3.UseVisualStyleBackColor = true;
+            iconButton3.Click += iconButton3_Click;
             // 
             // pnlFormLoader
             // 
             pnlFormLoader.Dock = DockStyle.Bottom;
-            pnlFormLoader.Location = new Point(0, 91);
+            pnlFormLoader.Location = new Point(0, 65);
             pnlFormLoader.Name = "pnlFormLoader";
-            pnlFormLoader.Size = new Size(771, 486);
+            pnlFormLoader.Size = new Size(1381, 705);
             pnlFormLoader.TabIndex = 9;
+            pnlFormLoader.Paint += pnlFormLoader_Paint;
             // 
             // lblTitle
             // 
@@ -263,40 +269,13 @@
             lblTitle.TabIndex = 8;
             lblTitle.Text = "Dashboard";
             // 
-            // iconButton3
-            // 
-            iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.ForeColor = Color.FromArgb(46, 51, 73);
-            iconButton3.IconChar = FontAwesome.Sharp.IconChar.CloudUploadAlt;
-            iconButton3.IconColor = Color.Red;
-            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton3.Location = new Point(745, 0);
-            iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(23, 23);
-            iconButton3.TabIndex = 10;
-            iconButton3.UseVisualStyleBackColor = true;
-            iconButton3.Click += iconButton3_Click;
-            // 
-            // iconButton4
-            // 
-            iconButton4.FlatStyle = FlatStyle.Flat;
-            iconButton4.ForeColor = Color.FromArgb(46, 51, 73);
-            iconButton4.IconChar = FontAwesome.Sharp.IconChar.CloudDownload;
-            iconButton4.IconColor = Color.RoyalBlue;
-            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton4.Location = new Point(716, 0);
-            iconButton4.Name = "iconButton4";
-            iconButton4.Size = new Size(23, 23);
-            iconButton4.TabIndex = 11;
-            iconButton4.UseVisualStyleBackColor = true;
-            iconButton4.Click += iconButton4_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
             BackColor = Color.FromArgb(46, 51, 73);
-            ClientSize = new Size(951, 577);
+            ClientSize = new Size(1562, 773);
             Controls.Add(panel3);
             Controls.Add(pnlNav);
             Controls.Add(panel1);
@@ -327,7 +306,6 @@
         private Panel panel3;
         private Label lblTitle;
         private Panel pnlFormLoader;
-        private FontAwesome.Sharp.IconButton btnCadastro;
         private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton iconButton4;
